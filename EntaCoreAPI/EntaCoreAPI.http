@@ -1,0 +1,6 @@
+@EntaCoreAPI_HostAddress = http://localhost:5181
+
+GET {{EntaCoreAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
