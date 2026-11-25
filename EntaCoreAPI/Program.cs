@@ -1,23 +1,28 @@
+using EntaCoreAPI.Extensions;
+using EntaCoreAPI.Middlewares;
+using Infrastructure.Services.Database;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+DapperTypeHandlers.Register();
+builder.Services.AddProjectDependencies(builder.Configuration);
 
 var app = builder.Build();
+app.UseRouting();
+app.UseCors("AllowAll");
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
+app.UseGlobalExceptionMiddleware();
+
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
+app.UseMiddleware<TokenValidationMiddleware>();
 app.UseAuthorization();
-
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

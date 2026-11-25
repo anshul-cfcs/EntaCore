@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace Application.Interfaces
+namespace Application.Interfaces.Database
 {
     public interface IStoredProcedureExecutor
     {
