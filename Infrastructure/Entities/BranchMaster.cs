@@ -27,5 +27,9 @@ public partial class BranchMaster
 
     public bool IsDeleted { get; set; }
 
+    public int? ZoneId { get; set; }
+
     public virtual ICollection<EmployeeMaster> EmployeeMasters { get; set; } = new List<EmployeeMaster>();
+
+    public virtual ZoneMaster? Zone { get; set; }
 }

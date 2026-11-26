@@ -19,8 +19,6 @@ public partial class EmployeeMaster
 
     public int? CompanyId { get; set; }
 
-    public int? BranchId { get; set; }
-
     public int? DepartmentId { get; set; }
 
     public int? DesignationId { get; set; }
@@ -36,8 +34,6 @@ public partial class EmployeeMaster
     public Guid? ManagerId { get; set; }
 
     public Guid? SubManagerId { get; set; }
-
-    public Guid? SuperManagerId { get; set; }
 
     public int? GenderId { get; set; }
 
@@ -71,17 +67,21 @@ public partial class EmployeeMaster
 
     public long? UpdatedBy { get; set; }
 
-    public bool IsActive { get; set; }
+    public Guid? SuperManagerId { get; set; }
 
-    public bool IsDeleted { get; set; }
+    public int? BranchId { get; set; }
 
-    public virtual BranchMaster? Branch { get; set; }
+    public virtual CompanyMaster? Company { get; set; }
 
     public virtual ICollection<EmployeeMaster> InverseManager { get; set; } = new List<EmployeeMaster>();
 
     public virtual ICollection<EmployeeMaster> InverseSuperManager { get; set; } = new List<EmployeeMaster>();
 
+    public virtual ICollection<LoginLogMaster> LoginLogMasters { get; set; } = new List<LoginLogMaster>();
+
     public virtual EmployeeMaster? Manager { get; set; }
 
     public virtual EmployeeMaster? SuperManager { get; set; }
+
+    public virtual UserLogin? UserLogin { get; set; }
 }

@@ -7,6 +7,7 @@ using Domain.Exceptions;
 using Infrastructure.Data;
 using Infrastructure.Helpers;
 using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Text;
 
@@ -33,8 +34,8 @@ namespace Infrastructure.Services
                 filter.SortDirection
             };
 
-            var connection = _connectionFactory.CreateConnection();
-            var results = await connection.QueryMultipleAsync(StoredProcudures.SuperAdmin.GetCompanyList, parameters, commandType: System.Data.CommandType.StoredProcedure);
+            using var connection = _connectionFactory.CreateConnection();
+            using var results = await connection.QueryMultipleAsync(StoredProcudures.SuperAdmin.GetCompanyList, parameters, commandType: CommandType.StoredProcedure);
 
             var totalCount = await results.ReadSingleAsync<int>();
             var companies = (await results.ReadAsync<CompanyListDto>()).ToList();

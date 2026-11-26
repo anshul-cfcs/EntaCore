@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Application.DTOs.SuperAdmin;
+using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EntaCoreAPI.Controllers
@@ -18,7 +20,7 @@ namespace EntaCoreAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> GetCompanyList([FromHeader] string Authorization, [FromBody] CompanyFilters filter)
         {
-            var result = _service.GetCompanyListAsync(filter);
+            var result =await _service.GetCompanyListAsync(filter);
             return Ok(result);
         }
     }
