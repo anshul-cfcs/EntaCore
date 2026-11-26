@@ -17,11 +17,11 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     app.UseSwaggerUI();
 }
 
-//app.UseGlobalExceptionMiddleware();
+app.UseGlobalExceptionMiddleware();
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
-//app.UseMiddleware<TokenValidationMiddleware>();
+app.UseMiddleware<TokenValidationMiddleware>();
 app.UseAuthorization();
 app.MapControllers();
 

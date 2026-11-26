@@ -48,4 +48,6 @@ public partial class MailConfigurationMaster
     public DateTime? UpdatedAt { get; set; }
 
     public Guid? UpdatedBy { get; set; }
+
+    public virtual CompanyMaster? Company { get; set; }
 }

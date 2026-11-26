@@ -102,4 +102,6 @@ public partial class CompanyMaster
     public virtual ICollection<EmployeeMaster> EmployeeMasters { get; set; } = new List<EmployeeMaster>();
 
     public virtual ICollection<LoginLogMaster> LoginLogMasters { get; set; } = new List<LoginLogMaster>();
+
+    public virtual ICollection<MailConfigurationMaster> MailConfigurationMasters { get; set; } = new List<MailConfigurationMaster>();
 }

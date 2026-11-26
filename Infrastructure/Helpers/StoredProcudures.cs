@@ -11,5 +11,9 @@ namespace Infrastructure.Helpers
             public const string GetCompanyList = "dbo.CompanyList";
             public const string GetCompanyDetail = "dbo.CompanyDetail";
         }
+        public static class Account
+        {
+            public const string UserLoginCheck = "dbo.UserLoginCheck";
+        }
     }
 }

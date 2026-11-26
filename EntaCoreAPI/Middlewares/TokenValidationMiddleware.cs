@@ -178,7 +178,7 @@ namespace EntaCoreAPI.Middlewares
                 return null;
             }
 
-            var key = Encoding.UTF8.GetBytes(jwtKey);
+            var key = Convert.FromBase64String(jwtKey);
 
             var validationParameters = new TokenValidationParameters
             {

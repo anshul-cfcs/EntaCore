@@ -4,6 +4,7 @@ using Application.Services;
 using Infrastructure.Data;
 using Infrastructure.Services;
 using Infrastructure.Services.Database;
+using Infrastructure.Services.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -57,7 +58,7 @@ namespace EntaCoreAPI.Extensions
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = configuration["Jwt:Issuer"],
                         ValidAudience = configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!))
+                        IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(configuration["Jwt:Key"]!))
                     };
                 });
 
@@ -72,6 +73,10 @@ namespace EntaCoreAPI.Extensions
             services.AddScoped<ISuperAdminCompanyService, SuperAdminCompanyService>();
             services.AddScoped<ISuperAdminCompanyDbService, SuperAdminCompanyDbService>();
             services.AddScoped<IDapperConnectionFactory, DapperConnectionFactory>();
+            services.AddScoped<IAuthenticateDbService, AuthenticateDbService>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IEncryptionService, EncryptionService>();
         }
         private static void AddDatabase(IServiceCollection services, IConfiguration configuration)
         {
