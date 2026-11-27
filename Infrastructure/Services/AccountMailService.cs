@@ -78,7 +78,55 @@ namespace Infrastructure.Services
 
             await _mailService.SendMailHtmlAsync(mail);
         }
+        public async Task SendForgotPasswordOtpAsync(LoginResultDto result)
+        {
+            if (string.IsNullOrWhiteSpace(result.EmailID)) return;
 
+            var footer = await GetMailFooterInfoAsync(result.CompanyID);
+
+            var resetLink = string.IsNullOrWhiteSpace(footer.SiteUrl) ? string.Empty : $"{footer.SiteUrl}/reset-password?salt={result.OTPKey}";
+
+            var subject = "Password reset request : " + footer.CompanyName;
+            var body = GetHeader() + AccountMailTemplates.BuildForgotPasswordOtpBody(result.FullName, result.OTP ?? string.Empty, resetLink) + GetFooter(footer.CompanyName, footer.CompanyAddress, footer.ContactNo, footer.ContactEmail);
+
+            var mail = new MailConfigModel
+            {
+                Subject = subject,
+                Body = body,
+                AddToType = 1,
+                MailCollection = new NameValueCollection
+            {
+                { result.EmailID, result.FullName }
+            },
+                CompanyId = result.CompanyID
+            };
+
+            await _mailService.SendMailHtmlAsync(mail);
+        }
+
+        public async Task SendPasswordChangedAsync(LoginResultDto result)
+        {
+            if (string.IsNullOrWhiteSpace(result.EmailID)) return;
+            var mailConfig = await GetMailFooterInfoAsync(result.CompanyID);
+
+            var subject = $"EntaCore - Password update notification : {mailConfig.CompanyName}";
+
+            var body = GetHeader() + AccountMailTemplates.BuildPasswordChangedBody(result.FullName) + GetFooter(mailConfig.CompanyName, mailConfig.CompanyAddress, mailConfig.ContactNo, mailConfig.ContactEmail);
+
+            var mail = new MailConfigModel
+            {
+                Subject = subject,
+                Body = body,
+                AddToType = 1,
+                MailCollection = new NameValueCollection
+            {
+                {result.EmailID.Trim(), result.FullName }
+            },
+                CompanyId = result.CompanyID
+            };
+
+            await _mailService.SendMailHtmlAsync(mail);
+        }
         private class MailFooterInfo
         {
             public string CompanyName { get; set; } = string.Empty;

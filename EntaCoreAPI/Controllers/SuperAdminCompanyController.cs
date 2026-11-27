@@ -17,10 +17,17 @@ namespace EntaCoreAPI.Controllers
             _service = service;
         }
 
-        [HttpPost]
+        [HttpPost("get-company-list")]
         public async Task<IActionResult> GetCompanyList([FromHeader] string Authorization, [FromBody] CompanyFilters filter)
         {
             var result =await _service.GetCompanyListAsync(filter);
+            return Ok(result);
+        }
+
+        [HttpPost("comapany-ins-updt")]
+        public async Task<IActionResult> CompanyInsUpdt([FromHeader] string Authorization, [FromBody] CompanyInsUpdtRequest request)
+        {
+            var result = request.CompanyID == 0 ? _service.CreateCompanyAsync(request) : _service.UpdateCompanyAsync(request);
             return Ok(result);
         }
     }

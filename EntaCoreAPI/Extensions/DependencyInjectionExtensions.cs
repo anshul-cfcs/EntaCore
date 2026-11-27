@@ -77,6 +77,12 @@ namespace EntaCoreAPI.Extensions
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IEncryptionService, EncryptionService>();
+            services.AddScoped<IAccountMailService, AccountMailService>();
+            services.AddScoped<IMailService, MailService>();
+            services.AddScoped<ICommunicationLogService, CommunicationLogService>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<ICompanyFolderService, CompanyFolderService>();
+            services.AddScoped<IFileStorageService, FileStorageService>();
         }
         private static void AddDatabase(IServiceCollection services, IConfiguration configuration)
         {

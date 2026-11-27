@@ -17,7 +17,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     app.UseSwaggerUI();
 }
 
-app.UseGlobalExceptionMiddleware();
+//app.UseGlobalExceptionMiddleware();
 
 app.UseHttpsRedirection();
 app.UseAuthentication();

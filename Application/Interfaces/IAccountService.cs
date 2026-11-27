@@ -9,11 +9,11 @@ namespace Application.Interfaces
     public interface IAccountService
     {
         Task<ResponseJson> Login(LoginRequest request);
-        //Task<ResponseJson> VerifyLoginOtp(VerifyLoginOtpRequest request);
-        //Task<ResponseJson> ForgotPassword(ForgotPasswordRequest request);
-        //Task<ResponseJson> ResetPassword(ResetPasswordRequest request);
-        //Task<ResponseJson> ChangePassword(ChangePasswordRequest request);
-        //Task<ResponseJson> LoginOtpRegenerate(LoginOtpRegenerateRequest request);
-        //Task<ResponseJson> LogoutAsync();
+        Task<ResponseJson> VerifyLoginOtp(VerifyLoginOTPRequest request);
+        Task<ResponseJson> ForgotPassword(ForgotPasswordRequest request);
+        Task<ResponseJson> ResetPassword(ResetPasswordRequest request);
+        Task<ResponseJson> ChangePassword(ChangePasswordRequest request);
+        Task<ResponseJson> LoginOtpRegenerate(LoginOTPRegenerateRequest request);
+        Task<ResponseJson> LogoutAsync();
     }
 }
